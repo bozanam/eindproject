@@ -109,10 +109,7 @@ public class LinesActivity extends AppCompatActivity {
     private void setAdapter( ArrayList<String> arry){
         ArrayAdapter<String> myAdapter =
                 new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, arry);
-
-
         lijstview.setAdapter(myAdapter);
-
     }
 
 
@@ -125,8 +122,9 @@ public class LinesActivity extends AppCompatActivity {
     public void goToFavs(View view) {
         Intent intent = new Intent(getApplicationContext(), favorites.class);
         startActivity(intent);
-
     }
+
+
 
 
 

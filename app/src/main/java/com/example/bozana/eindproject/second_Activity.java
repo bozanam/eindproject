@@ -97,10 +97,7 @@ public class second_Activity extends AppCompatActivity {
     private void setAdapter( ArrayList<String> arry){
         ArrayAdapter<String> myAdapter =
                 new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, arry);
-
-
         theListView.setAdapter(myAdapter);
-
     }
 
 
@@ -116,6 +113,5 @@ public class second_Activity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
-
     }
 }

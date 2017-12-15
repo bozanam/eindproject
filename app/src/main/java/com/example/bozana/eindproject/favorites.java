@@ -1,11 +1,14 @@
 package com.example.bozana.eindproject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,12 +47,9 @@ public class favorites extends AppCompatActivity {
         lijstzicht = findViewById(R.id.lijstvanfavo);
         mAuth = FirebaseAuth.getInstance();
         titles = new ArrayList<>();
-
+        listClick();
         getFromDB();
-
-
     }
-
 
     public void getFromDB() {
         ValueEventListener postListener = new ValueEventListener() {
@@ -64,11 +64,23 @@ public class favorites extends AppCompatActivity {
                     String[] lijst = dtsnapshot.split(",");
                     Log.d("Tweede key", "   " + Arrays.toString(lijst)); // database vanaf tomdekr  // ?? waarom 3x ??
 
-                    for (int i = 0; i < lijst.length; i++) {
+                    String Joep = String.valueOf(dtsnapshot);
+                    Log.d("JOEP", "onDataChange: " + Joep);
+                    Joep.replace("{", "").replace("}", "");
 
-                        String[] lijst2 = dtsnapshot.split("=");
-                        titles.add(lijst2[i]);
+
+
+                    for (int i = 0; i < lijst.length; i++) {
+                        String substring;
+                        if( i == lijst.length - 1){
+                            substring = lijst[i].substring(22, lijst[i].length() -1 );
+                        } else{
+                            substring = lijst[i].substring(22, lijst[i].length());
+                        }
+
+                        titles.add(substring);
                     }
+
 
                     ArrayAdapter<String> myAdapter =
                             new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
@@ -88,6 +100,19 @@ public class favorites extends AppCompatActivity {
             }
         };
         mDatabase.addValueEventListener(postListener);
+    }
+
+    public void listClick(){
+        lijstzicht.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String itemClicked = adapterView.getItemAtPosition(position).toString();
+                Intent intent = new Intent(getApplicationContext(), LinesActivity.class);
+                intent.putExtra("chosenItem", itemClicked);
+                startActivity(intent);
+
+            }
+        });
     }
 
 
