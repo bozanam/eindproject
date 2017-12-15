@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1053834711174",
+    "firebase_url": "https://eindproject-151195.firebaseio.com",
+    "project_id": "eindproject-151195",
+    "storage_bucket": "eindproject-151195.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053834711174:android:3f8d705cb81342bd",
+        "android_client_info": {
+          "package_name": "com.example.bozana.eindproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053834711174-fq294oq1i19oivmo1bchthf51983ehgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGPPv8Pg7vMXF8B9Liod1hlrstwj7RGfE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
