@@ -46,32 +46,22 @@ public class second_Activity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
-        ListAdapter theAdapter = new ArrayAdapter<String>(second_Activity.this,android.R.layout.simple_list_item_1);
-
-
-
         JsonObjectRequest jsonobject = new JsonObjectRequest(Request.Method.GET, url,null,
                 new Response.Listener<JSONObject>() {
+            //Get the data from the API and put it in the adapter
                     @Override
                     public void onResponse(JSONObject response) {
                          newArray = new ArrayList<>();
-                        //JSONArray JSArray;
-
                             try {
 
                             JSArray = response.getJSONArray("titles");
                             for (int i = 0; i < JSArray.length(); i++) {
                                 newArray.add(JSArray.getString(i));
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                         setAdapter(newArray);
-
                     }
                 }
 
@@ -81,6 +71,7 @@ public class second_Activity extends AppCompatActivity {
     }
 
     public void listClick(){
+        //makes sure something happens when user clicks on a title
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -102,12 +93,15 @@ public class second_Activity extends AppCompatActivity {
 
 
     public void goToFavs(View view) {
+        // When the user clickes the button sends him to the favorites activity
         Intent intent = new Intent(getApplicationContext(), favorites.class);
         startActivity(intent);
     }
 
 
     public void signOut(View view) {
+        //Signs the user out when the button is clicked
+        // Sends user to login page
             mAuth.getInstance()
                     .signOut();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

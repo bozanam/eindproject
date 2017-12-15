@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void onClick(View view){
+    public void onClick(View view){ //making sure that when a title is clicked, something happens
         email = mEmail.getText().toString();
         password = mPassword.getText().toString();
         if (view.getId() == R.id.tvTitle){
@@ -108,15 +108,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 throw task.getException();
                             }catch (FirebaseAuthUserCollisionException existEmail) {
                                 Log.d("exist_email", "onComplete: exist_email");
-                                Toast.makeText(MainActivity.this, email+ " already exists!",
+                                Toast.makeText(MainActivity.this, email+ " already exists",
                                         Toast.LENGTH_SHORT).show();}// if user enters wrong email.
                             catch (FirebaseAuthWeakPasswordException weakPassword) {
-                                Log.d("weak_password", "onComplete: weak_password");
+                                Log.d("bad password", "onComplete: not long enough password");
                                 Toast.makeText(MainActivity.this, "Weak password! Password needs to be at least 6 characters  long!",
                                         Toast.LENGTH_LONG).show();}// if user enters wrong password.
                             catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
-                                Log.d("malformed_email", "onComplete: malformed_email");
-                                Toast.makeText(MainActivity.this,  "Malformed email!",
+                                Log.d("wrong email", "onComplete: wrong email");
+                                Toast.makeText(MainActivity.this,  "email doesn't exist!",
                                         Toast.LENGTH_SHORT).show();
                             }  catch (Exception e) {
                                 Log.d("Error", "onComplete: " + e.getMessage());}
@@ -147,18 +147,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void nextPage() {
+        // When called, makes the user go to the next activity
         Intent intent = new Intent(getApplicationContext(), second_Activity.class);
         startActivity(intent);
-
     }
 
 
 
     public void goHome(MenuItem item) {
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
 
     }
-
 
 }

@@ -53,24 +53,19 @@ public class favorites extends AppCompatActivity {
 
     public void getFromDB() {
         ValueEventListener postListener = new ValueEventListener() {
+            //retrieves the data stored on firebase
             @SuppressLint("NewApi")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String user = mAuth.getCurrentUser().getUid().toString();
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Users").child(user).getChildren()) {
                     String dtsnapshot = dataSnapshot1.getValue().toString();
-                    Log.d("HIERR", "onDataChange: " + Objects.toString(dtsnapshot));
 
+                    //splits the dtsnapshot object into smaller pieces
                     String[] lijst = dtsnapshot.split(",");
-                    Log.d("Tweede key", "   " + Arrays.toString(lijst)); // database vanaf tomdekr  // ?? waarom 3x ??
-
-                    String Joep = String.valueOf(dtsnapshot);
-                    Log.d("JOEP", "onDataChange: " + Joep);
-                    Joep.replace("{", "").replace("}", "");
-
-
 
                     for (int i = 0; i < lijst.length; i++) {
+                        //removes the unnessessary data and adds the relevant one to "lijst"
                         String substring;
                         if( i == lijst.length - 1){
                             substring = lijst[i].substring(22, lijst[i].length() -1 );
@@ -81,28 +76,25 @@ public class favorites extends AppCompatActivity {
                         titles.add(substring);
                     }
 
-
+                // adds the data to the ListView via an Adapter
                     ArrayAdapter<String> myAdapter =
                             new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titles);
                     lijstzicht.setAdapter(myAdapter);
-
                 }
-
             }
-
-
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w("OK", "loadPost:onCancelled", databaseError.toException());
-                // ...
+
             }
         };
         mDatabase.addValueEventListener(postListener);
     }
 
+
     public void listClick(){
+// makes sure something happens when user clickes on one of the list items.
         lijstzicht.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -116,6 +108,12 @@ public class favorites extends AppCompatActivity {
     }
 
 
+    public void goHome(View view) {
+        // Sends the user to the second Activity when the button is clicked
+        Intent intent = new Intent(getApplicationContext(), second_Activity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 
 

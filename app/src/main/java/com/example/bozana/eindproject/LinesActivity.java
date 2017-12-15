@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,7 +52,7 @@ public class LinesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         gekozen = intent.getStringExtra("chosenItem").toString();
         mAuth = FirebaseAuth.getInstance();
-
+        second_Activity second;
         Log.d("HIER", "onCreate: " +gekozen);
         //String gekozen = intent.getExtras("chosenItem", itemClicked);
         final String url = "http://poetrydb.org/title/" + gekozen;
@@ -96,17 +97,15 @@ public class LinesActivity extends AppCompatActivity {
 
 
     public void AddtoDB(){
+        // makes sure something is added to the database (firebase) when user wants to
         FirebaseUser user = mAuth.getCurrentUser();
         String title = gekozen.toString();
 
-
-
         mDatabase.child("Users").child(user.getUid()).child("favorite").push().setValue((gekozen));
-
-
     }
 
     private void setAdapter( ArrayList<String> arry){
+        // Adapter for  the ListView is created
         ArrayAdapter<String> myAdapter =
                 new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, arry);
         lijstview.setAdapter(myAdapter);
@@ -114,12 +113,15 @@ public class LinesActivity extends AppCompatActivity {
 
 
     public void addToFavs(View view) {
+        // Calls the AddtoDB function to add a favorite of the user to the database
+        // and gives confirmation in the form of a toast
         AddtoDB();
+        Toast.makeText(getApplicationContext(), "Poem is added to your favorites.",Toast.LENGTH_SHORT).show();
     }
 
 
-
     public void goToFavs(View view) {
+        // When the user clickes the button sends him to the favorites activity
         Intent intent = new Intent(getApplicationContext(), favorites.class);
         startActivity(intent);
     }
